@@ -1,0 +1,33 @@
+<!-- {{taskData | json}} -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <select name="" id="" [(ngModel)]="getVal">
+        <option value="1">Monthly</option>
+        <option value="2">yearly</option>
+      </select>
+      {{getVal}}
+      <table class="table table-bordered">
+        <tr *ngFor="let taskReport of taskData">
+          <td>{{taskReport.TASK_ID}}</td>
+          <td>{{taskReport.CONVERGE_ID}}</td>
+          <td>{{taskReport.JOBTYPE}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-sm-6">
+      <div style="display: block;">
+        <canvas baseChart
+                  [datasets]="barChartData"
+                  [labels]="barChartLabels"
+                  [options]="barChartOptions"
+                  [legend]="barChartLegend"
+                  [chartType]="barChartType"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)"></canvas>
+        </div>
+    </div>
+  </div>
+</div>
+
