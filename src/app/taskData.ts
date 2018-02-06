@@ -16,7 +16,8 @@ export class Task{
     ACTUAL_START_TIME:Date
     ACTUAL_END_TIME:Date
     ACTUAL_HOURS:number
-    TOKEN_ID:string  
+    TOKEN_ID:string
+    TEAM:string  
 }
 
 

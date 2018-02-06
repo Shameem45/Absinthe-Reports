@@ -7,11 +7,13 @@ import { ReportsComponent } from './reports/reports.component';
 import { TaskdataService } from './services/taskdata.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { BarchartComponent } from './barchart/barchart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ReportsComponent
+    ReportsComponent,
+    BarchartComponent
   ],
   imports: [
     BrowserModule,
