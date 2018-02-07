@@ -26,30 +26,40 @@ export class ReportsComponent implements OnInit {
    }
 
   ngOnInit():void {
-  this.http.get<any>('./assets/datas/taskdata.json').subscribe(data => 
-    //console.log(data)
-    this.taskData.push(data.data)
-  );
-  //console.log(this.taskData)
-  /*  this._taskDataService.getTaskData().subscribe(data => this.taskData = data)
+    
+    this._taskDataService.getTaskData().subscribe(data => this.taskData.push(data))
     console.log(this.taskData);
-    this.taskDatacount = this.taskData.length;
-    this.onChangeTable(this.config);*/
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //this.http.get<any>('./assets/datas/taskdata.json').subscribe(data => console.log(this.taskData = data));
+    //console.log(this.taskData)
+
+
+    //this.taskDatacount = this.taskData.length;
+    //this.onChangeTable(this.config);
     /* this._taskDataService.getTaskData().subscribe((res : Task[])=>{
       this.task = res; 
       console.log(this.task.length);
       this.newlength=this.task.length;
       console.log(res)
     }); */
-    this.onChangeTable(this.config);
-    console.log(this.taskData)
+    // this.onChangeTable(this.config);
+    
 
   }
 
   
 
 //pagination
-public rows:Array<any> = [];
+/* public rows:Array<any> = [];
 public columns:Array<any> = [
   {title: 'Name', name: 'name', filtering: {filterString: '', placeholder: 'Filter by name'}},
   {
@@ -170,5 +180,5 @@ public onChangeTable(config:any, page:any = {page: this.page, itemsPerPage: this
 
 public onCellClick(data: any): any {
   console.log(data);
-}
+} */
 }

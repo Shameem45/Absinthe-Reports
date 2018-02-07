@@ -11,7 +11,7 @@ export class TaskdataService {
   constructor(private http:HttpClient) { }
 
   getTaskData():Observable<Task[]> {
-    return this.http.get<Task[]>(this._taskUrl);
+    return this.http.get<any>(this._taskUrl).map(res => res);
   }
 
 }
