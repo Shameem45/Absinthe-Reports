@@ -1,31 +1,68 @@
 <!-- {{taskData | json}} -->
 
 <div class="container">
-    <div class="panel panel-primary">
-        <div class="panel-heading">Over All Jobs</div>
-        <div class="panel-body">
-            <table class="table table-bordered">
-                <tr *ngFor="let taskReport of taskData">
-                    <td>{{taskReport.TASK_ID}}</td>
-                    <td>{{taskReport.CONVERGE_ID}}</td>
-                    <td>{{taskReport.JOBTYPE}}</td>
-                    <td>{{taskReport.COMPLEXITY}}</td>
-                    <td>{{taskReport.SCHEDULED_START_DATE}}</td>
-                    <td>{{taskReport.SCHEDULED_END_DATE}}</td>
-                    <td>{{taskReport.STATUS}}</td>
-                    <td>{{taskReport.PUBLISHER}}</td>
-                    <td>{{taskReport.TOTAL_NO_OF_FUNCTIONALITIES}}</td>
-                    <td>{{taskReport.ACTUAL_HOURS}}</td>
-                    <td>{{taskReport.TEAM}}</td>
-                </tr>
-            </table>
+        <div class="panel panel-primary">
+            <div class="panel-heading">Over All Jobs</div>
+            <div class="panel-body">
+                <table class="table table-bordered">   
+                    <tr>
+                        <th>task id</th>
+                        <th>CONVERGE ID</th>
+                        <th>JOBTYPE</th>
+                        <th>COMPLE XITY</th>
+                        <th>S START DATE</th>
+                        <th>S END DATE</th>
+                        <th>STATUS</th>
+                        <th>PUBLISHER</th>
+                        <th>TOTAL NO OF FUNCTION ALITIES</th>
+                        <th>ACTUAL HOURS</th>
+                        <th>TEAM</th>
+                    </tr>
+                    
+                    <tr *ngFor="let taskReport of task">
+                        <td>{{taskReport.TASK_ID}}</td>
+                        <td>{{taskReport.CONVERGE_ID}}</td>
+                        <td>{{taskReport.JOBTYPE}}</td>
+                        <td>{{taskReport.COMPLEXITY}}</td>
+                        <td>{{taskReport.SCHEDULED_START_DATE}}</td>
+                        <td>{{taskReport.SCHEDULED_END_DATE}}</td>
+                        <td>{{taskReport.STATUS}}</td>
+                        <td>{{taskReport.PUBLISHER}}</td>
+                        <td>{{taskReport.TOTAL_NO_OF_FUNCTIONALITIES}}</td>
+                        <td>{{taskReport.ACTUAL_HOURS}}</td>
+                        <td>{{taskReport.TEAM}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-md-4">
+                  <input *ngIf="config.filtering" placeholder="Filter all columns"
+                         [ngTableFiltering]="config.filtering"
+                         class="form-control"
+                         (tableChanged)="onChangeTable(config)"/>
+                </div>
+              </div>
+              <br>
+        <pagination *ngIf="config.paging"
+            class="pagination-sm"
+            [(ngModel)]="page"
+            [totalItems]="length"
+            [itemsPerPage]="itemsPerPage"
+            [maxSize]="maxSize"
+            [boundaryLinks]="true"
+            [rotate]="false"
+            (pageChanged)="onChangeTable(config, $event)"
+            (numPages)="numPages = $event">
+        </pagination>
+        <pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre>
+    
+        <div class="panel panel-default">
+            <div class="panel-heading">&nbsp;</div>
+            <div class="panel-body">
+                <app-barchart></app-barchart>
+            </div>
         </div>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">&nbsp;</div>
-        <div class="panel-body">
-            <app-barchart></app-barchart>
-        </div>
-    </div>
-</div>
-
+    
+    
