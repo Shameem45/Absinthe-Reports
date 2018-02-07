@@ -8,7 +8,7 @@ import { TaskdataService } from './services/taskdata.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BarchartComponent } from './barchart/barchart.component';
-import { PaginationModule } from "ng2-bootstrap/pagination";
+// import { PaginationModule } from "ng2-bootstrap/pagination";
 import { Ng2TableModule } from "ng2-table/ng2-table";
 
 @NgModule({
@@ -22,7 +22,7 @@ import { Ng2TableModule } from "ng2-table/ng2-table";
     HttpClientModule,
     ChartsModule,
     FormsModule,
-    PaginationModule.forRoot(),
+    // PaginationModule.forRoot(),
     Ng2TableModule
   ],
   providers: [

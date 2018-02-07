@@ -12,7 +12,7 @@ import { TaskdataService } from '../services/taskdata.service';
 })
 export class ReportsComponent implements OnInit {
 
-  public taskData:Task[] = []; 
+  public taskData = []; 
   public taskDatacount:number;
   res:any;
   task: Task[];
@@ -20,25 +20,33 @@ export class ReportsComponent implements OnInit {
   
 
   constructor(private _taskDataService:TaskdataService,private http:HttpClient) {
-    console.log(this.taskData.length);
-    this.length = this.length;
+    //console.log(this.taskData.length);
+    //this.length = this.length;
+    //console.log(this.data)
    }
 
   ngOnInit():void {
-  // this.http.get<Task[]>('./assets/datas/taskdata.json').subscribe(data => this.taskData = data);
+  this.http.get<any>('./assets/datas/taskdata.json').subscribe(data => 
+    //console.log(data)
+    this.taskData.push(data.data)
+  );
+  //console.log(this.taskData)
   /*  this._taskDataService.getTaskData().subscribe(data => this.taskData = data)
     console.log(this.taskData);
     this.taskDatacount = this.taskData.length;
     this.onChangeTable(this.config);*/
-    this._taskDataService.getTaskData().subscribe((res : Task[])=>{
+    /* this._taskDataService.getTaskData().subscribe((res : Task[])=>{
       this.task = res; 
       console.log(this.task.length);
       this.newlength=this.task.length;
-      console.log(this.newlength)
-    });
+      console.log(res)
+    }); */
     this.onChangeTable(this.config);
+    console.log(this.taskData)
 
   }
+
+  
 
 //pagination
 public rows:Array<any> = [];
