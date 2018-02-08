@@ -14,23 +14,13 @@ export class ReportsComponent implements OnInit {
 
   public taskData = []; 
 
+  constructor(private _taskDataService:TaskdataService,private http:HttpClient) {}
   
-
-  constructor(private _taskDataService:TaskdataService,private http:HttpClient) {
-   // console.log(this.taskData);
-   }
-   getData() {
-   console.log(this.taskData);
-   }
   ngOnInit():void {
     
     this._taskDataService.getTaskData().subscribe(data => this.taskData.push(data))
     console.log(this.taskData);
-    //this._taskDataService.getTaskData().subscribe((data => this.taskData.map(data))
 
   }
-
-  //Pagination
-
 
 }

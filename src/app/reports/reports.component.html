@@ -20,7 +20,7 @@
                         <th>TEAM</th>
                     </tr>
                     
-                    <tr *ngFor="let taskReport of taskData[0] | searchFilter : searchText | orderByStatusandDate">
+                    <tr *ngFor="let taskReport of taskData[0] | searchFilter">
                         <td>{{taskReport.TASK_ID}}</td>
                         <td>{{taskReport.CONVERGE_ID}}</td>
                         <td>{{taskReport.JOBTYPE}}</td>
@@ -36,26 +36,6 @@
                 </table>
             </div>
         </div>
-        <button (click)="getData()" value="sub"></button>
-        <!------------------------------------------
-        <div class="btn-toolbar" role="toolbar" style="margin: 0;">
-                <div class="btn-group">
-                        <label style="margin-top:10px">Page {{currentIndex}}/{{pageNumber}}</label>
-                     </div>
-                     <div class="btn-group pull-right">
-                        <ul class="pagination" >
-                           <li [ngClass]="{'disabled': (currentIndex == 1 || pageNumber == 0)}" ><a  (click)="prevPage()" href="#">Prev</a></li>
-                              <li *ngFor="let page of pagesIndex"  [ngClass]="{'active': (currentIndex == page)}">
-                                 <a (click)="setPage(page)" href="#" >{{page}}</a>
-                              </li>
-                           <li [ngClass]="{'disabled': (currentIndex == pageNumber || pageNumber == 0)}" ><a   (click)="nextPage()" href="#">Next</a></li>
-                        </ul>
-                     </div>       
-        </div>
-
-
-        ---------------------------------------->
-
         <div class="panel panel-default">
             <div class="panel-heading">&nbsp;</div>
             <div class="panel-body">
