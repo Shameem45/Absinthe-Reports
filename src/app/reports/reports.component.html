@@ -4,7 +4,7 @@
         <div class="panel panel-primary">
             <div class="panel-heading">Over All Jobs</div>
             <div class="panel-body">
-                Search:    <input [(ngModel)]="searchText" placeholder="search by Team"><br/><br/>
+                    <input [(ngModel)]="searchText" placeholder="search text goes here">
                 <table class="table table-bordered">   
                     <tr>
                         <th>task id</th>
@@ -20,7 +20,7 @@
                         <th>TEAM</th>
                     </tr>
                     
-                    <tr *ngFor="let taskReport of taskData[0] | searchFilter">
+                    <tr *ngFor="let taskReport of taskData[0] | searchFilter : searchText">
                         <td>{{taskReport.TASK_ID}}</td>
                         <td>{{taskReport.CONVERGE_ID}}</td>
                         <td>{{taskReport.JOBTYPE}}</td>
@@ -36,6 +36,28 @@
                 </table>
             </div>
         </div>
+        <div class="row">
+                <!-- <div class="col-md-4">
+                  <input *ngIf="config.filtering" placeholder="Filter all columns"
+                         [ngTableFiltering]="config.filtering"
+                         class="form-control"
+                         (tableChanged)="onChangeTable(config)"/>
+                </div> -->
+              </div>
+              <br>
+        <!-- <pagination *ngIf="config.paging"
+            class="pagination-sm"
+            [(ngModel)]="page"
+            [totalItems]="length"
+            [itemsPerPage]="itemsPerPage"
+            [maxSize]="maxSize"
+            [boundaryLinks]="true"
+            [rotate]="false"
+            (pageChanged)="onChangeTable(config, $event)"
+            (numPages)="numPages = $event">
+        </pagination>
+        <pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre> -->
+    
         <div class="panel panel-default">
             <div class="panel-heading">&nbsp;</div>
             <div class="panel-body">
