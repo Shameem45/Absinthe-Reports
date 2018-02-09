@@ -1,0 +1,65 @@
+<!-- {{taskData | json}} -->
+
+<div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Over All Jobs</div>
+            <div class="panel-body">
+                Search:    <input [(ngModel)]="searchText" placeholder="search by Team"><br/><br/>
+                <table class="table table-bordered">   
+                    <tr>
+                        <th>task id</th>
+                        <th>CONVERGE ID</th>
+                        <th>JOBTYPE</th>
+                        <th>COMPLE XITY</th>
+                        <th>S START DATE</th>
+                        <th>S END DATE</th>
+                        <th>STATUS</th>
+                        <th>PUBLISHER</th>
+                        <th>TOTAL NO OF FUNCTION ALITIES</th>
+                        <th>ACTUAL HOURS</th>
+                        <th>TEAM</th>
+                    </tr>
+                    
+                    <tr *ngFor="let taskReport of taskData[0] | searchFilter : searchText | orderByStatusandDate">
+                        <td>{{taskReport.TASK_ID}}</td>
+                        <td>{{taskReport.CONVERGE_ID}}</td>
+                        <td>{{taskReport.JOBTYPE}}</td>
+                        <td>{{taskReport.COMPLEXITY}}</td>
+                        <td>{{taskReport.SCHEDULED_START_DATE}}</td>
+                        <td>{{taskReport.SCHEDULED_END_DATE}}</td>
+                        <td>{{taskReport.STATUS}}</td>
+                        <td>{{taskReport.PUBLISHER}}</td>
+                        <td>{{taskReport.TOTAL_NO_OF_FUNCTIONALITIES}}</td>
+                        <td>{{taskReport.ACTUAL_HOURS}}</td>
+                        <td>{{taskReport.TEAM}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+            <!-- pager -->
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(1)">First</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                    </li>
+                    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                        <a (click)="setPage(page)">{{page}}</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.totalPages)">Last</a>
+                    </li>
+                </ul>
+        <div class="panel panel-default">
+            <div class="panel-heading">&nbsp;</div>
+            <div class="panel-body">
+                <app-barchart></app-barchart>
+            </div>
+        </div>
+    </div>
+    
+    
