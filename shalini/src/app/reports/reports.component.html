@@ -20,7 +20,7 @@
                         <th>TEAM</th>
                     </tr>
                     
-                    <tr *ngFor="let taskReport of taskData[0] | searchFilter : searchText | orderByStatusandDate">
+                    <tr *ngFor="let taskReport of taskData[0] | searchFilter : searchText"> <!-- | orderByStatusandDate-->
                         <td>{{taskReport.TASK_ID}}</td>
                         <td>{{taskReport.CONVERGE_ID}}</td>
                         <td>{{taskReport.JOBTYPE}}</td>
