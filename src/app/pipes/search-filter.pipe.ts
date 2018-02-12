@@ -13,6 +13,7 @@ export class SearchFilterPipe implements PipeTransform {
             return el.TEAM.toLowerCase().indexOf(input) > -1;
         })
     }
+    console.log(input);
     return value;
 }
 

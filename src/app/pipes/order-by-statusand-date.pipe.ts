@@ -7,8 +7,10 @@ import { TaskdataService } from '../services/taskdata.service';
 })
 export class OrderByStatusandDatePipe implements PipeTransform {
 
+  taskData;
+
   constructor(private taskdataService:TaskdataService) {
-      console.log(this.taskdataService.taskdata)
+      //console.log(this.taskdataService.taskData)
   }
   transform(array: any, args: any): Array<string> {
    // return array.filter(function (el: any) {
