@@ -6,6 +6,8 @@ import 'rxjs/add/operator/map';
 import { TaskdataService } from '../services/taskdata.service';
 import { PagerserviceService } from '../services/pagerservice.service';
 import { OrderByStatusandDatePipe } from '../pipes/order-by-statusand-date.pipe';
+import { DaterangepickerModule } from 'angular-2-daterangepicker';
+import { Options } from 'angular-2-daterangepicker';
 
 @Component({
   selector: 'app-reports',
@@ -23,8 +25,7 @@ export class ReportsComponent implements OnInit {
       pager: any = {};
   
       // paged items
-      pagedItems: any[];
-  
+      pagedItems: any[];  
 
   constructor(private _taskDataService:TaskdataService, private http:HttpClient, private PagerserviceService: PagerserviceService) {}
   
