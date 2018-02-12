@@ -3,24 +3,23 @@
 <div class="container">
         <div class="panel panel-primary">
             <div class="panel-heading">Over All Jobs</div>
-            <div class="panel-body">
-                Search:    <input [(ngModel)]="searchText" placeholder="search by Team"><br/><br/>
+            <div class="panel-body">  
                 <table class="table table-bordered">   
                     <tr>
                         <th>task id</th>
-                        <th>CONVERGE ID</th>
+                        <th>CONVERGE ID <input type="text" class="form-control" [(ngModel)]="searchConverge" placeholder="search by convergeid"><br/></th>
                         <th>JOBTYPE</th>
                         <th>COMPLE XITY</th>
                         <th>S START DATE</th>
                         <th>S END DATE</th>
-                        <th>STATUS</th>
+                        <th>STATUS <input type="text" class="form-control" [(ngModel)]="searchStatus" placeholder="search by status"><br/></th>
                         <th>PUBLISHER</th>
                         <th>TOTAL NO OF FUNCTION ALITIES</th>
                         <th>ACTUAL HOURS</th>
-                        <th>TEAM</th>
+                        <th>TEAM <input type="text" class="team" class="form-control" [(ngModel)]="searchTeam" placeholder="search by Team"><br/></th>
                     </tr>
                     
-                    <tr *ngFor="let taskReport of taskData[0] | searchFilter : searchText"> <!-- | orderByStatusandDate-->
+                    <tr *ngFor="let taskReport of taskData[0] | searchFilter : searchConverge:searchStatus:searchTeam">
                         <td>{{taskReport.TASK_ID}}</td>
                         <td>{{taskReport.CONVERGE_ID}}</td>
                         <td>{{taskReport.JOBTYPE}}</td>
