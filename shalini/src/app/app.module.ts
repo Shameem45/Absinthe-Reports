@@ -26,7 +26,7 @@ import { OrderByStatusandDatePipe } from './pipes/order-by-statusand-date.pipe';
     BrowserModule,
     HttpClientModule,
     ChartsModule,
-    FormsModule,
+    FormsModule
   ],
   providers: [
     TaskdataService,

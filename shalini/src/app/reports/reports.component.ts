@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Task} from '../taskData'
+import { Task, res } from '../taskData'
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { TaskdataService } from '../services/taskdata.service';
@@ -14,41 +14,51 @@ import { Options } from 'angular-2-daterangepicker';
   templateUrl: './reports.component.html',
   styleUrls: ['./reports.component.css']
 })
+
 export class ReportsComponent implements OnInit {
 
   public taskData = []; 
-  
-  // array of all items to be paged
-  private allItems: any[];
-  
-      // pager object
-      pager: any = {};
-  
-      // paged items
-      pagedItems: any[];  
 
-  constructor(private _taskDataService:TaskdataService, private http:HttpClient, private PagerserviceService: PagerserviceService) {}
+    //  results: res = new res();
+
+    public  res: res;
+
+  constructor(private _taskDataService:TaskdataService, private http:HttpClient, private PagerserviceService: PagerserviceService) {
+  }
   
-  ngOnInit():void {
-    
+  ngOnInit():void {   
     this._taskDataService.getTaskData().subscribe(data => this.taskData.push(data))
     console.log(this.taskData);
-    this.setPage(1);
-
-  }
-
-
-  //pagination
-  setPage(page: number) {
-    if (page < 1 || page > this.pager.totalPages) {
-        return;
-    }
-
-    // get pager object from service
-    this.pager = this.PagerserviceService.getPager(this.taskData.length, page);
-
-    // get current page of items
-    this.pagedItems = this.taskData.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    this.showConfig();
 }
 
+  showConfig() {
+    this._taskDataService.getTaskData()
+    //  .map((res: Response) => res.json())
+      .subscribe(data => this.res = {   
+        TASK_ID: data['TASK_ID'],
+        CONVERGE_ID: data['CONVERGE_ID'],
+        JOBTYPE : data['JOBTYPE'],
+        COMPLEXITY: data['COMPLEXITY'],
+        SCHEDULED_START_DATE: data['SCHEDULED_START_DATE'],
+        SCHEDULED_END_DATE: data['SCHEDULED_END_DATE'],
+        STATUS: data['STATUS'],
+        PUBLISHER: data['PUBLISHER'],
+        POCS: data['POCS'],
+        JOB_COMMENTS: data['JOB_COMMENTS'],
+        SCHEDULED_HOURS: data['SCHEDULED_HOURS'],
+        TOTAL_NO_OF_FUNCTIONALITIES: data['TOTAL_NO_OF_FUNCTIONALITIES'],
+        FUNCTIONALITY_DETAILS: data['FUNCTIONALITY_DETAILS'],
+        EDIT_REASON: data['EDIT_REASON'],
+        ACTUAL_START_TIME: data ['ACTUAL_START_TIME'],
+        ACTUAL_END_TIME: data ['ACTUAL_END_TIME'],
+        ACTUAL_HOURS: data['ACTUAL_HOURS'],
+        TOKEN_ID: data['TOKEN_ID'],
+        TEAM: data['TEAM']
+      
+      },
+
+    () => console.log(this.res.ACTUAL_END_TIME));
+    console.log(this.res.TEAM);
+  }
 }

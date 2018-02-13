@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { Task, res } from '../taskData';
+import { TaskdataService } from '../services/taskdata.service';
+import { PagerserviceService } from '../services/pagerservice.service';
 
 @Component({
   selector: 'app-barchart',
@@ -7,21 +12,61 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BarchartComponent implements OnInit {
 
-  constructor() { }
+  public taskData:any = [];
+  barChart:any=[];
+  result:any;
 
-  ngOnInit() {
+  functionalites: any[];
+  items: number[] = [];
+
+ // result: res = new res();
+
+  constructor(private _taskDataService:TaskdataService, private http:HttpClient, private PagerserviceService: PagerserviceService) {
+    console.log(this.result); 
   }
+  
+  ngOnInit():void {
+    
+   this._taskDataService.getTaskData().subscribe(data => this.taskData.push(data))
+    console.log(this.taskData);
+
+    this.getData()
+  
+  }
+
+  getData()  {
+    let result = this.result;
+    this._taskDataService.getTaskData()
+    .map(res => res)
+    .subscribe(
+            //data => this.taskData.push(data),
+            val => this.result = val,
+            err => console.error(err),
+            () =>  console.log(this.result[0].TOTAL_NO_OF_FUNCTIONALITIES)); 
+            () => this.result[0].TOTAL_NO_OF_FUNCTIONALITIES.push(this.functionalites);
+             console.log(this.functionalites)
+        //   console.log(result.length);
+          // this.result.length = length;
+         /*  for( var i=0; i = length; i++ ) {
+            this.items.push(i);
+            console.log(i);
+          }*/
+  }
+
+
   // Barchart
   public barChartOptions:any = {
     scaleShowVerticalLines: false,
     responsive: true
   };
-  public barChartLabels:string[] = ['2012', '2013', '2014', '2015', '2016', '2017', '2018'];
+  public barChartLabels:string[] = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July'];
   public barChartType:string = 'bar';
   public barChartLegend:boolean = true;
+
+ public ids = [];
  
   public barChartData:any[] = [
-    {data: [10, 8, 5, 50, 56, 55, 40], label: 'Dev'},
+    {data: [[this.barChart]], label: 'Dev'},
     {data: [28, 48, 40, 19, 86, 27, 90], label: 'QA'},
     {data: [28, 48, 40, 19, 86, 27, 90], label: 'Adops'}
   ];
