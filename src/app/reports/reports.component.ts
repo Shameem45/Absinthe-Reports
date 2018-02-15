@@ -18,7 +18,8 @@ export class ReportsComponent implements OnInit {
   
   ngOnInit():void {
     
-    this._taskDataService.getTaskData().subscribe(data => this.taskData.push(data))
+    this._taskDataService.getTaskData().subscribe(data => {this.taskData.push(data)})
+    
     console.log(this.taskData);
 
   }
