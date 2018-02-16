@@ -1,0 +1,35 @@
+{
+"data":
+    [
+        {
+            "DATE":"3/1/2018",
+            "IN_TME":"",
+            "OUT_TIME":"",
+            "TEAM":"Dev"
+        },
+        {
+            "DATE":"4/1/2018",
+            "IN_TME":"",
+            "OUT_TIME":"",
+            "TEAM":"Dev"
+        },
+        {
+            "DATE":"5/1/2018",
+            "IN_TME":"",
+            "OUT_TIME":"",
+            "TEAM":"Dev"
+        },
+        {
+            "DATE":"6/1/2018",
+            "IN_TME":"",
+            "OUT_TIME":"",
+            "TEAM":"Dev"
+        },
+        {
+            "DATE":"7/1/2018",
+            "IN_TME":"",
+            "OUT_TIME":"",
+            "TEAM":"Dev"
+        }
+    ]
+}
