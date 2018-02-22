@@ -1,0 +1,15 @@
+th button{
+    background: transparent;
+    border: 0 ;
+    color: blue;
+}
+.panel-body {
+    padding: 15px;
+    position: relative;
+}
+
+.panel-body span{
+    position: absolute;
+    top: 23px;
+    left: 30px;
+}

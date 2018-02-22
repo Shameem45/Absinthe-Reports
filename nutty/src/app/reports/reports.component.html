@@ -1,0 +1,130 @@
+
+<div class="container">
+    <!-- whole Teamwise Productivity -->
+    <div class="panel panel-primary">
+        <div class="panel-heading"><b>Teamwise Utilization</b></div>
+        <div class="panel-body">            
+            <table class="table table-bordered">   
+                <tr>
+                    <th>Dev</th>
+                    <th>Ad Ops</th>
+                    <th>QA</th>
+                </tr>                
+                <tr>
+                    <td>88%</td>
+                    <td>90%</td>
+                    <td>85%</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!-- individual Team member productivity -->
+    <div class="panel panel-primary" *ngIf="individualTeamProductivitySec">
+        <div class="panel-heading"><b>Team Memberwise Utilization</b></div>
+        <div class="panel-body">
+            <span>{{selectTeam}}</span>
+            <select [(ngModel)]="selectTeam" (ngModelChange)="teamChange($event)" class="form-control" name="team">                
+                 <option value="" disabled="true" [selected]="!selectTeam">--select the team--</option> 
+                <option  *ngFor="let x of productivityData[0]|unique" [ngValue]="x">{{x.team}}</option>
+            </select>
+            <table class="table table-bordered">   
+                <tr>
+                    <th>Team</th>
+                    <th>EMP ID</th>
+                    <th>EMP NAME</th>
+                    <th>Sum Of Working Days</th>
+                    <th>Sum Of Present Days</th>
+                    <th>Sum Of Worked Hours</th>
+                    <th>Utilization</th>
+                </tr>                
+                <tr *ngFor="let productivityReport of productivityData[0] | selectFilter:selectTeam">
+                    <td>{{productivityReport.team}}</td>
+                    <td>{{productivityReport.empID}}</td>
+                    <td>{{productivityReport.empName}}</td>
+                    <td>{{productivityReport.total_no_of_workingdays}}</td>
+                    <td>{{productivityReport.total_no_of_presentdays}}</td>
+                    <td>{{productivityReport.total_no_of_workedhours}}</td>
+                    <td>{{((productivityReport.total_no_of_workedhours/(productivityReport.total_no_of_presentdays*8))*100)|number}} %</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!-- bar chart -->
+    <!--<div class="panel panel-default">
+        <div class="panel-heading">&nbsp;</div>
+        <div class="panel-body">
+            <app-barchart></app-barchart>
+        </div>
+    </div>-->
+    <!-- task table-->
+    <div class="panel panel-primary">
+        <div class="panel-heading">Over All Jobs</div>
+        <div class="panel-body">
+            Search: <input type="text" [(ngModel)]="filterText" placeholder="Enter Text" style="margin-bottom:8px;padding:3px;">
+            <table class="table table-bordered">   
+                <tr>
+                    <th>task id</th>
+                    <th><button (click)="sortingType('convId')">CONVERGE ID &#709;</button></th>
+                    <th>JOBTYPE</th>
+                    <th>COMPLEXITY</th>
+                    <th><button (click)="sortingType('Date')">SCHEDULED START DATE &#709;</button></th>
+                    <th><button (click)="sortingType('Date')">SCHEDULED END DATE &#709;</button></th>
+                    <th><button (click)="sortingType('pub')" >PUBLISHER &#709;</button></th>
+                    <th><button (click)="sortingType('func')">TOTAL NO OF FUNCTIONALITIES &#709;</button></th>
+                    <th>ACTUAL HOURS</th>
+                </tr>
+                
+                <tr *ngFor="let taskReport of taskData[0] | searchFilter:filterText">
+                    <td>{{taskReport.task_id}}</td>
+                    <td>{{taskReport.converge_id}}</td>
+                    <td>{{taskReport.jobtype}}</td>
+                    <td>{{taskReport.complexity}}</td>
+                    <td>{{taskReport.scheduled_start_date|date:'dd/MM/yyyy'}}</td>
+                    <td>{{taskReport.scheduled_end_date|date:'dd/MM/yyyy'}}</td>
+                    <td>{{taskReport.publisher}}</td>
+                    <td>{{taskReport.total_no_of_functionalities}}</td>
+                    <td>{{taskReport.actual_hours}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!-- pie chart -->
+    <!--<div class="panel panel-default">
+        <div class="panel-heading">&nbsp;</div>
+        <div class="panel-body">
+            <app-pie-chart></app-pie-chart>
+        </div>
+    </div>-->
+    <!-- productivity table-->
+    <div class="panel panel-primary">
+        <div class="panel-heading">Over All Productivity</div>
+        <div class="panel-body">
+            <table class="table table-bordered">   
+                <tr>
+                    <th>Team</th>
+                    <th>EMP ID</th>
+                    <th>EMP NAME</th>
+                    <th>Sum Of Working Days</th>
+                    <th>Sum Of Present Days</th>
+                    <th>Sum Of Worked Hours</th>
+                    <th>Productivity</th>
+                </tr>
+                
+                <tr *ngFor="let productivityReport of productivityData[0]">
+                    <td>{{productivityReport.team}}</td>
+                    <td>{{productivityReport.empID}}</td>
+                    <td>{{productivityReport.empName}}</td>
+                    <td>{{productivityReport.total_no_of_workingdays}}</td>
+                    <td>{{productivityReport.total_no_of_presentdays}}</td>
+                    <td>{{productivityReport.total_no_of_workedhours}}</td>
+                    <td>{{(productivityReport.total_no_of_workedhours/(productivityReport.total_no_of_presentdays*8))*100}}%</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!--individual Team productivity table-->
+
+    
+</div>
+    
+    
