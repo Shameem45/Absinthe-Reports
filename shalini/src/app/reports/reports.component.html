@@ -35,10 +35,29 @@
                 </table>
             </div>
         </div>
+        <div class="row"> 
+            <!-- whole Teamwise Productivity -->
+            <div class="panel panel-primary width50">
+                <div class="panel-heading"><b>Teamwise Productivity</b></div>
+                <div class="panel-body">            
+                    <table class="table table-bordered">   
+                        <tr>
+                            <th>Dev</th>
+                            <th>Ad Ops</th>
+                            <th>QA</th>
+                        </tr>                
+                        <tr>
+                            <td><a href="javascript:;" (click)="teamChange('dev')">{{devProductivity|number}}%</a></td>
+                            <td><a href="javascript:;" (click)="teamChange('Adops')">{{adopsProductivity|number}}%</a></td>
+                            <td><a href="javascript:;" (click)="teamChange('qa')">{{qaProductivity|number}}%</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         <div class="panel panel-default">
             <div class="panel-heading">&nbsp;</div>
             <div class="panel-body">
-                <app-barchart></app-barchart>
+                <app-piechart></app-piechart>
             </div>
         </div>
     </div>

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Task, res } from '../taskData';
+import { Task } from '../taskData';
 import { TaskdataService } from '../services/taskdata.service';
 import { PagerserviceService } from '../services/pagerservice.service';
 
@@ -15,44 +15,21 @@ export class BarchartComponent implements OnInit {
   public taskData:any = [];
   barChart:any=[];
   result:any;
+  _devProductivityData: number;
 
-  functionalites: any[];
-  items: number[] = [];
+  onEmittingdevProductivityData (devProductivityData : number):void {
+    this._devProductivityData = devProductivityData
+    console.log(devProductivityData)
+  }
 
- // result: res = new res();
-
-  constructor(private _taskDataService:TaskdataService, private http:HttpClient, private PagerserviceService: PagerserviceService) {
-    console.log(this.result); 
+  constructor(private _taskDataService:TaskdataService, private http:HttpClient) {
   }
   
   ngOnInit():void {
     
    this._taskDataService.getTaskData().subscribe(data => this.taskData.push(data))
-    console.log(this.taskData);
-
-    this.getData()
-  
+   console.log(this._devProductivityData)
   }
-
-  getData()  {
-    let result = this.result;
-    this._taskDataService.getTaskData()
-    .map(res => res)
-    .subscribe(
-            //data => this.taskData.push(data),
-            val => this.result = val,
-            err => console.error(err),
-            () =>  console.log(this.result[0].TOTAL_NO_OF_FUNCTIONALITIES)); 
-            () => this.result[0].TOTAL_NO_OF_FUNCTIONALITIES.push(this.functionalites);
-             console.log(this.functionalites)
-        //   console.log(result.length);
-          // this.result.length = length;
-         /*  for( var i=0; i = length; i++ ) {
-            this.items.push(i);
-            console.log(i);
-          }*/
-  }
-
 
   // Barchart
   public barChartOptions:any = {

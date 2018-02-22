@@ -1,23 +1,19 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { Task, productivityData } from '../taskData'
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import { Component, OnInit } from '@angular/core';
 import { TaskdataService } from '../services/taskdata.service';
-import { PagerserviceService } from '../services/pagerservice.service';
-import { OrderByStatusandDatePipe } from '../pipes/order-by-statusand-date.pipe';
-import { DaterangepickerModule } from 'angular-2-daterangepicker';
-import { Options } from 'angular-2-daterangepicker';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-reports',
-  templateUrl: './reports.component.html',
-  styleUrls: ['./reports.component.css']
+  selector: 'app-piechart',
+  templateUrl: './piechart.component.html',
+  styleUrls: ['./piechart.component.css']
 })
+export class PiechartComponent implements OnInit {
+  // Doughnut
 
-export class ReportsComponent implements OnInit {
- 
-
+  public doughnutChartLabels:string[] = ['Dev', 'Adops', 'QA'];
+  public doughnutChartData:number[] = [10,20,30];
+  public doughnutChartType:string = 'doughnut';
+  
   public taskData = [];
   public productivityData = [];
 
@@ -74,19 +70,13 @@ export class ReportsComponent implements OnInit {
   QAtotalScheduledHours : number;
   AdopstotalScheduledHours : number;
 
-  @Output() devProductivityData = new EventEmitter<number>();
-
-
   private _taskUrl:string = "./assets/datas/taskdata.json";
-  private _produtivityUrl:string = "./assets/datas/productivity.json";
 
 
-  constructor(private _taskDataService:TaskdataService, private http:HttpClient) { 
-    this.http.get<any>(this._taskUrl).subscribe(data => 
-      this.taskData.push(data.data)
+  constructor(private _taskDataService:TaskdataService, private http:HttpClient) { }
 
-    );
 
+ngOnInit():void {   
     this.http.get<any>(this._taskUrl).subscribe(data =>{ 
       for(let i=0; i<data.data.length; i++){
       //  this.devActualHours.push(data.data[i]);
@@ -167,6 +157,7 @@ export class ReportsComponent implements OnInit {
       this.adopsScheduledJobHours = this.adopsScheduledJobHours+this.AdopsScheduledHoursObj[i];
     }
     this.adopsProductivityObj.push((this.adopsActualJobHours/this.adopsScheduledJobHours)*100); 
+   
   
     // assigning data from a array to variable 
     for(let i=0;i<this.devProductivityObj.length;i++){
@@ -183,14 +174,22 @@ export class ReportsComponent implements OnInit {
       this.qaProductivity = this.qaProductivity+this.qaProductivityObj[i];
     }
     this.qaProductivity = this.qaProductivity/this.qaProductivityObj.length;
-    });    
+    this.getOutsideData(this.devProductivity,this.adopsProductivity,this.qaProductivity);
+    });   
 }
 
-  ngOnInit():void {   
-  
-
+ 
+  getOutsideData(a,b,c) {
+    this.doughnutChartData = [a,b,c];
+  }
+  // events
+  public chartClicked(e:any):void {
+    console.log(e);
+  }
+ 
+  public chartHovered(e:any):void {
+    console.log(e);
   }
 
-}
- 
 
+}
