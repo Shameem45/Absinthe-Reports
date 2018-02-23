@@ -16,7 +16,6 @@ import { Options } from 'angular-2-daterangepicker';
 })
 
 export class ReportsComponent implements OnInit {
- 
 
   public taskData = [];
   public productivityData = [];
@@ -74,19 +73,34 @@ export class ReportsComponent implements OnInit {
   QAtotalScheduledHours : number;
   AdopstotalScheduledHours : number;
 
-  @Output() devProductivityData = new EventEmitter<number>();
+
+
+  
+  filteredItems = [];
+  pages : number = 4;
+ pageSize : number = 5;
+  pageNumber : number = 0;
+  currentIndex : number = 1;
+  items = [];
+  pagesIndex : Array<number>;
+  pageStart : number = 1;
+  inputName : string = '';
+
 
 
   private _taskUrl:string = "./assets/datas/taskdata.json";
-  private _produtivityUrl:string = "./assets/datas/productivity.json";
+  //private _produtivityUrl:string = "./assets/datas/productivity.json";
 
 
   constructor(private _taskDataService:TaskdataService, private http:HttpClient) { 
     this.http.get<any>(this._taskUrl).subscribe(data => 
-      this.taskData.push(data.data)
+      this.items.push(data.data)
+   //   this.filteredItems = data;
+   
 
     );
-
+    this.init();
+    
     this.http.get<any>(this._taskUrl).subscribe(data =>{ 
       for(let i=0; i<data.data.length; i++){
       //  this.devActualHours.push(data.data[i]);
@@ -183,12 +197,95 @@ export class ReportsComponent implements OnInit {
       this.qaProductivity = this.qaProductivity+this.qaProductivityObj[i];
     }
     this.qaProductivity = this.qaProductivity/this.qaProductivityObj.length;
+
+  
     });    
+
 }
 
-  ngOnInit():void {   
-  
+  ngOnInit():void {  
+  }
+    init(){
+    
+    this.http.get<any>(this._taskUrl).subscribe(data => {
+      this.filteredItems.push(data.data)
+    //  console.log(this.filteredItems[0].length)
+      this.filteredItems = this.filteredItems[0] 
+      //pagination
+      this.currentIndex = 1;
+      this.pageStart = 1;
+      this.pages = 4;
 
+      this.pageNumber = parseInt(""+ (this.filteredItems.length / this.pageSize));
+      if(this.filteredItems.length % this.pageSize != 0){
+        this.pageNumber ++;
+      }
+
+      if(this.pageNumber  < this.pages){
+            this.pages =  this.pageNumber;
+      }
+
+      this.refreshItems();
+      console.log("this.pageNumber :  "+this.pageNumber);
+
+  //    this.FilterByName();
+
+     });
+     
+   
+  }
+  
+  FilterByName(){
+ //   this.filteredItems = [];
+    if(this.inputName != ""){
+          this.filteredItems[0].forEach(element => {
+              if(element.name.toUpperCase().indexOf(this.inputName.toUpperCase())>=0){
+                this.filteredItems.push(element);
+             }
+          });
+    }else{
+       this.filteredItems = this.filteredItems[0];
+       //console.log(this.filteredItems[0]);
+    }
+    console.log(this.filteredItems);
+    this.init();
+ }
+ fillArray(): any{
+    var obj = new Array();
+    
+    for(var index = this.pageStart; index< this.pageStart + this.pages; index ++) {
+                obj.push(index);
+
+    }
+    return obj;
+   
+ }
+ refreshItems(){
+  this.items = this.filteredItems.slice((this.currentIndex - 1)*this.pageSize, (this.currentIndex) * this.pageSize);
+  this.pagesIndex =  this.fillArray();
+}
+  prevPage(){
+  if(this.currentIndex>1){
+  this.currentIndex --;
+  } 
+  if(this.currentIndex < this.pageStart){
+  this.pageStart = this.currentIndex;
+  }
+  this.refreshItems();
+  }
+  nextPage(){
+  if(this.currentIndex < this.pageNumber){
+    this.currentIndex ++;
+  }
+  if(this.currentIndex >= (this.pageStart + this.pages)){
+  this.pageStart = this.currentIndex - this.pages + 1;
+  }
+
+  this.refreshItems();
+  }
+  setPage(index : number){
+  this.currentIndex = index;
+  this.refreshItems();
   }
 
 }

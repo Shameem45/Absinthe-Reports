@@ -19,20 +19,36 @@
                         <th>TEAM <input type="text" class="team" class="form-control" [(ngModel)]="searchTeam" placeholder="search by Team"><br/></th>
                     </tr>
                     
-                    <tr *ngFor="let taskReport of taskData[0] | searchFilter : searchConverge:searchStatus:searchTeam">
-                        <td>{{taskReport.TASK_ID}}</td>
-                        <td>{{taskReport.CONVERGE_ID}}</td>
-                        <td>{{taskReport.JOBTYPE}}</td>
-                        <td>{{taskReport.COMPLEXITY}}</td>
-                        <td>{{taskReport.SCHEDULED_START_DATE}}</td>
-                        <td>{{taskReport.SCHEDULED_END_DATE}}</td>
-                        <td>{{taskReport.STATUS}}</td>
-                        <td>{{taskReport.PUBLISHER}}</td>
-                        <td>{{taskReport.TOTAL_NO_OF_FUNCTIONALITIES}}</td>
-                        <td>{{taskReport.ACTUAL_HOURS}}</td>
-                        <td>{{taskReport.TEAM}}</td>
+                    <tr *ngFor="let item of items | searchFilter : searchConverge:searchStatus:searchTeam">
+                        <td>{{item.TASK_ID}}</td>
+                        <td>{{item.CONVERGE_ID}}</td>
+                        <td>{{item.JOBTYPE}}</td>
+                        <td>{{item.COMPLEXITY}}</td>
+                        <td>{{item.SCHEDULED_START_DATE}}</td>
+                        <td>{{item.SCHEDULED_END_DATE}}</td>
+                        <td>{{item.STATUS}}</td>
+                        <td>{{item.PUBLISHER}}</td>
+                        <td>{{item.TOTAL_NO_OF_FUNCTIONALITIES}}</td>
+                        <td>{{item.ACTUAL_HOURS}}</td>
+                        <td>{{item.TEAM}}</td>
                     </tr>
                 </table>
+                 <!--pagination-->
+                 <div class="btn-toolbar" role="toolbar" style="margin: 0;">
+                        <div class="btn-group">
+                           <label style="margin-top:10px">Page {{currentIndex}}/{{pageNumber}}</label>
+                        </div>
+                        <div class="btn-group pull-right">
+                           <ul class="pagination" >
+                              <li [ngClass]="{'disabled': (currentIndex == 1 || pageNumber == 0)}" ><a  (click)="prevPage()" href="#">Prev</a></li>
+                                 <li *ngFor="let page of pagesIndex"  [ngClass]="{'active': (currentIndex == page)}">
+                                    <a (click)="setPage(page)" href="#" >{{page}}</a>
+                                 </li>
+                              <li [ngClass]="{'disabled': (currentIndex == pageNumber || pageNumber == 0)}" ><a   (click)="nextPage()" href="#">Next</a></li>
+                           </ul>
+                        </div>
+              </div>    
+              <!--pagination end--> 
             </div>
         </div>
         <div class="row"> 
